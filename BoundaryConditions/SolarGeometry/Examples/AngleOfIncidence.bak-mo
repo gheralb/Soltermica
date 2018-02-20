@@ -1,0 +1,30 @@
+within Soltermica.BoundaryConditions.SolarGeometry.Examples;
+
+model AngleOfIncidence
+  extends Modelica.Blocks.Icons.Block;
+  BaseClasses.Calendar calendar1(
+    husoHorario=husoHorario)
+    annotation(Placement(visible = true, transformation(origin = {-90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Soltermica.BoundaryConditions.SolarGeometry.IncidenceAngle incidenceAngle1(
+    inclinacion=inclinacion,
+    orientacion=orientacion)
+    annotation(Placement(visible = true, transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  SolarPosition solarPosition1(
+    longitudLugar=longitudLugar,
+    latitudLugar=latitudLugar,
+    husoHorario=husoHorario)
+    annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput AoI annotation(Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+//Model parameters
+  parameter Real husoHorario=0;
+  parameter Real longitudLugar=0;
+  parameter Real latitudLugar=0;
+  parameter Real inclinacion=0;
+  parameter Real orientacion=0;
+equation
+  connect(incidenceAngle1.anguloIncidencia, AoI) annotation(Line(points = {{62, 0}, {100, 0}, {100, 0}, {110, 0}}, color = {0, 0, 127}));
+  connect(incidenceAngle1.acimutSolar, solarPosition1.acimutSolar) annotation(Line(points = {{42, 5}, {47, 5}, {47, 6}, {12, 6}}, color = {0, 0, 127}));
+  connect(solarPosition1.elevacionSolar, incidenceAngle1.anguloZenital) annotation(Line(points = {{12, -4}, {47, -4}, {47, -5}, {42, -5}}, color = {0, 0, 127}));
+  connect(calendar1.tiempoUTC, solarPosition1.tiempoUTC) annotation(Line(points = {{-78, 4}, {-26, 4}, {-26, 6}, {-8, 6}, {-8, 6}}, color = {0, 0, 127}));
+  connect(calendar1.numDia, solarPosition1.numDia) annotation(Line(points = {{-78, 8}, {-44, 8}, {-44, -4}, {-8, -4}, {-8, -4}}, color = {255, 127, 0}));
+annotation(uses(Modelica(version = "3.2.1")), Icon(graphics = {Text(extent = {{-80, 80}, {80, -80}}, textString = "AoI")}));end AngleOfIncidence;

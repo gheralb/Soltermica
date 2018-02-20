@@ -1,0 +1,17 @@
+within Soltermica.ThermoFluidSystems.Pumps.BaseClasses;
+
+block PumpController
+  extends Modelica.Blocks.Icons.Block;
+  Modelica.Blocks.Interfaces.RealInput SenalEntrada
+    annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-80, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.BooleanOutput y
+    annotation(Placement(visible = true, transformation(origin = {120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.SIunits.Power cons_elec "Consumo electrico instantaneo";
+  parameter Modelica.SIunits.Power pot_elec_nom 
+    "Potencia electrica consumida en condiciones nominales";
+equation 
+//control salida booleana
+y=if SenalEntrada>0 then true else false;
+cons_elec=noEvent(if SenalEntrada>0 then pot_elec_nom else 0);
+  annotation(uses(Modelica(version = "3.2.1")));
+end PumpController;

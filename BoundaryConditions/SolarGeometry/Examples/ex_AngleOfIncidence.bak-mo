@@ -1,0 +1,29 @@
+within Soltermica.BoundaryConditions.SolarGeometry.Examples;
+
+model ex_AngleOfIncidence
+  extends Modelica.Icons.Example;
+  Soltermica.BoundaryConditions.SolarGeometry.SolarPosition solarPosition1(
+    husoHorario=husoHorario,
+    longitudLugar=longitudLugar,
+    latitudLugar=latitudLugar)
+    annotation(Placement(visible = true, transformation(origin = {-12, -6}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Soltermica.BoundaryConditions.SolarGeometry.IncidenceAngle incidenceAngle1(
+    inclinacion=inclinacion,
+    orientacion=orientacion)
+    annotation(Placement(visible = true, transformation(origin = {62, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  BaseClasses.Calendar calendar1(
+    husoHorario=husoHorario)
+    annotation(Placement(visible = true, transformation(origin = {-70, -4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+//Model parameters
+//Model parameters
+  parameter Real husoHorario=1;
+  parameter Real longitudLugar=-1.169;
+  parameter Real latitudLugar=38.003;
+  parameter Real inclinacion=45;
+  parameter Real orientacion=0;
+equation
+  connect(solarPosition1.acimutSolar, incidenceAngle1.acimutSolar) annotation(Line(points = {{-1, -1}, {28, -1}, {28, 2}, {54, 2}, {54, 3}}, color = {0, 0, 127}));
+  connect(solarPosition1.anguloZenital, incidenceAngle1.anguloZenital) annotation(Line(points = {{-1, -6}, {54, -6}, {54, -7}}, color = {0, 0, 127}));
+  connect(calendar1.numDia, solarPosition1.numDia) annotation(Line(points = {{-58, 4}, {-34, 4}, {-34, -10}, {-20, -10}}, color = {255, 127, 0}));
+  connect(calendar1.tiempoUTC, solarPosition1.tiempoUTC) annotation(Line(points = {{-58, 0}, {-20, 0}}, color = {0, 0, 127}));
+end ex_AngleOfIncidence;

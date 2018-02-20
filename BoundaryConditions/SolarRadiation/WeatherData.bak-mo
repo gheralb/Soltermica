@@ -1,0 +1,16 @@
+within Soltermica.BoundaryConditions.SolarRadiation;
+
+model WeatherData
+  extends Modelica.Blocks.Icons.Block;
+  Modelica.Blocks.Sources.CombiTimeTable GlobalHorizontalIrradiance annotation(Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.CombiTimeTable DiffuseIrradiance annotation(Placement(visible = true, transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u annotation(Placement(visible = true, transformation(origin = {100, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {112, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u1 annotation(Placement(visible = true, transformation(origin = {100, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {96, -26}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Modelica.Blocks.Math.Add add1 annotation(Placement(visible = true, transformation(origin = {16, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  connect(DiffuseIrradiance.y[1], u1) annotation(Line(points = {{-38, -50}, {106, -50}, {106, -50}, {100, -50}}, color = {0, 0, 127}));
+  connect(add1.y, u) annotation(Line(points = {{28, 22}, {48, 22}, {48, 50}, {100, 50}, {100, 50}}, color = {0, 0, 127}));
+  connect(DiffuseIrradiance.y[1], add1.u2) annotation(Line(points = {{-38, -50}, {-26, -50}, {-26, 16}, {4, 16}, {4, 16}}, color = {0, 0, 127}));
+  connect(GlobalHorizontalIrradiance.y[1], add1.u1) annotation(Line(points = {{-38, 50}, {-26, 50}, {-26, 28}, {4, 28}, {4, 28}}, color = {0, 0, 127}));
+  annotation(uses(Modelica(version = "3.2.1")));
+end WeatherData;

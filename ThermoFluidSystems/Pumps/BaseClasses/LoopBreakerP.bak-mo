@@ -1,0 +1,12 @@
+within Soltermica.ThermoFluidSystems.Pumps.BaseClasses;
+
+model LoopBreakerP
+  Modelica.Thermal.FluidHeatFlow.Interfaces.FlowPort_a flowPort_a annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Thermal.FluidHeatFlow.Interfaces.FlowPort_b flowPort_b annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  flowPort_a.m_flow+flowPort_b.m_flow=0;
+  flowPort_a.H_flow+flowPort_b.H_flow=0;
+  flowPort_a.h=flowPort_b.h; 
+end LoopBreakerP;
